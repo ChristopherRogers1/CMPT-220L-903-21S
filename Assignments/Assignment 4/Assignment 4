@@ -1,0 +1,13 @@
+public static void main(String[] args)
+{
+    int summation(int[] insertList)
+    {
+        int counter = 0;
+        for (int x: insertList)
+        {
+            counter += insertList[x];
+        }
+
+        return counter;
+    }
+}
