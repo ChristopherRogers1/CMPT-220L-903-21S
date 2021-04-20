@@ -1,0 +1,10 @@
+public class Main
+{
+    plant grass = new plant();
+
+    public static void main(String[] args)
+    {
+        return null;
+    }
+
+}

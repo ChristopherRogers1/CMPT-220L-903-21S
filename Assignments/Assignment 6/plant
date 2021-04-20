@@ -1,0 +1,18 @@
+public class plant
+{
+    public boolean needsWatering;
+
+    public String plantFamily;
+
+    public String name;
+
+    public void wateringInstructions
+    {
+        System.out.println("Put water onto the plant.");
+    }
+
+    public void sunlightRequirement
+    {
+        System.out.println("This plant requires a lot of sun.");
+    }
+}
