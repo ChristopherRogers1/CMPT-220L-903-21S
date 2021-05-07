@@ -1,8 +1,9 @@
 public class Lab6
 {
-    public void ListItem()
+    public Lab6()
     {
-
+        String value;
+        String nextValue;
     }
 
     public static void main(String args[])
