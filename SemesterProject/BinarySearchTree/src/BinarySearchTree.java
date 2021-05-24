@@ -106,6 +106,7 @@ public class BinarySearchTree
         }
     }
 
+    //Pre and post order work similarly to in order, only changing when the value is pulled to before or after the movement
     public void printPostOrder(TreeNode node)
     {
         if(node.left!=null) {
@@ -166,6 +167,7 @@ public class BinarySearchTree
 
     ArrayList<Integer> findNthList = new ArrayList<Integer>();
 
+    //This is used below in findNth
     public void createArrayList(TreeNode node)
     {
         if(node.left!=null) {
@@ -179,6 +181,8 @@ public class BinarySearchTree
         }
     }
 
+    //Here I create an arrayList with every value, placed in order using a sort method similar to inorder, and find the
+    //nth value in the arraylist.
     public int findNth(int value, TreeNode node)
     {
         int newVal = value-1;
@@ -186,6 +190,47 @@ public class BinarySearchTree
         return findNthList.get(newVal);
     }
 
+    static TreeNode holder = null;
+
+    //This is used below in deleteNode
+    public static void findPreviousNode(int value, TreeNode node)
+    {
+        if(node.left!=null) {
+            if ((node.left).num==value)
+                holder = node;
+            findPreviousNode(value, node.left);
+        }
+
+        if(node.right!=null){
+            if ((node.right).num==value)
+                holder = node;
+            findPreviousNode(value, node.right);
+        }
+    }
+
+    //Here I find the location of the value before the deleted node, replace the left/right (whichever is appropriate) with
+    //null, and re-add the children of the removed node.
+    public void removeNode(int value, TreeNode node)
+    {
+        TreeNode placeholder1 = null, placeholder2 = null;
+        findPreviousNode(value, node);
+        if (node.left!=null)
+            placeholder1=node.left;
+        if (node.right!=null)
+            placeholder1=node.right;
+        if (holder.num>value)
+            holder.left=null;
+        else
+            holder.right=null;
+        if (placeholder1!=null)
+            insertNode(placeholder1.num);
+        if (placeholder2!=null)
+            insertNode(placeholder2.num);
+        System.out.println(value + "has been removed from the tree.");
+    }
+
+    //This is basically the preorder search, as depth first and preorder are very similar, with finding a specific value
+    // rather than printing out every value.
     public static void depthFirstSearch(int value, TreeNode node)
     {
         if (node.num == value)
@@ -203,23 +248,34 @@ public class BinarySearchTree
         }
     }
 
+    //This method was very difficult, as I couldn't come up with an easy way to move left->right across more than 2 nodes
+    //that have a similar height on the tree; still not entirely sure if this is a proper breadth first search
+
+    //I tried to add all values with similar heights into an arraylist (which acts as a stack) and continue to add/remove
+    //layers from the stack as I move further down the tree's height all while checking to see if they match the value.
     public static void breadthFirstSearch(int value, TreeNode node)
     {
         int counter = 0;
         ArrayList<TreeNode> nodeList = new ArrayList<TreeNode>();
+        TreeNode newNode = node;
+        nodeList.add(node);
 
-        if (node.num==value) {
-            System.out.println(value + " is in the tree.");
-            return;
+        while (nodeList.isEmpty()==false) {
+            newNode = nodeList.get(0);
+            nodeList.remove(0);
+
+            if (newNode.num==value) {
+                System.out.println(value + " is in the tree according to breadth search.");
+                return;
+            }
+
+            if (newNode.left != null)
+                nodeList.add(node.left);
+
+            if (newNode.right != null)
+                nodeList.add(node.right);
+
         }
-
-        if (node.left!=null)
-            nodeList.add(node.left);
-
-        if (node.right!=null)
-            nodeList.add(node.right);
-
-        
     }
 
     public static void main(String[] args)
@@ -235,6 +291,10 @@ public class BinarySearchTree
         sizeList.add(tree.insertNode(2));
         sizeList.add(tree.insertNode(12));
         sizeList.add(tree.insertNode(4));
+
+        tree.removeNode(15, tree.root);
+
+        tree.removeNode(5, tree.root);
 
         int max = Collections.max(sizeList) + 1;
 
@@ -277,6 +337,6 @@ public class BinarySearchTree
 
         depthFirstSearch(12, tree.root);
 
-        breadthFirstSearch(12, tree.root);
+        breadthFirstSearch(5, tree.root);
     }
 }
