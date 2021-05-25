@@ -226,7 +226,7 @@ public class BinarySearchTree
             insertNode(placeholder1.num);
         if (placeholder2!=null)
             insertNode(placeholder2.num);
-        System.out.println(value + "has been removed from the tree.");
+        System.out.println(value + " has been removed from the tree.");
     }
 
     //This is basically the preorder search, as depth first and preorder are very similar, with finding a specific value
@@ -235,7 +235,7 @@ public class BinarySearchTree
     {
         if (node.num == value)
         {
-            System.out.println(value + " is in the tree.");
+            System.out.println(value + " is in the tree according to a depth first search.");
             return;
         }
 
@@ -265,7 +265,7 @@ public class BinarySearchTree
             nodeList.remove(0);
 
             if (newNode.num==value) {
-                System.out.println(value + " is in the tree according to breadth search.");
+                System.out.println(value + " is in the tree according to breadth first search.");
                 return;
             }
 
@@ -292,7 +292,7 @@ public class BinarySearchTree
         sizeList.add(tree.insertNode(12));
         sizeList.add(tree.insertNode(4));
 
-        tree.removeNode(15, tree.root);
+        tree.removeNode(12, tree.root);
 
         tree.removeNode(5, tree.root);
 
@@ -333,9 +333,9 @@ public class BinarySearchTree
         else
             System.out.println("The value 2 is not in the tree.");
 
-        System.out.println("The fifth value is " + tree.findNth(5, tree.root));
+        System.out.println("The 5 value is " + tree.findNth(5, tree.root));
 
-        depthFirstSearch(12, tree.root);
+        depthFirstSearch(4, tree.root);
 
         breadthFirstSearch(5, tree.root);
     }
